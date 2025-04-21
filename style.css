@@ -1,0 +1,350 @@
+:root {
+    --malaysian-red: #cc0001;
+    --malaysian-blue: #000095;
+    --malaysian-yellow: #ffd100;
+    --deep-brown: #4a3228;
+    --light-brown: #8b5e3c;
+    --off-white: #f5f5f5;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: var(--off-white);
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Malaysian Flag Star Design in Container Background */
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 50%;
+    background-color: var(--malaysian-blue);
+    z-index: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 0.1;
+}
+
+h1 {
+    text-align: center;
+    color: var(--malaysian-blue);
+    margin-bottom: 30px;
+    padding: 20px;
+    border-bottom: 4px solid var(--malaysian-red);
+    position: relative;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Star decoration for title */
+h1::after {
+    content: '★';
+    color: var(--malaysian-yellow);
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    background: var(--white);
+    padding: 0 10px;
+}
+
+/* Filter Section Styles */
+.filter-section {
+    background: linear-gradient(135deg, var(--malaysian-blue) 0%, rgba(0, 0, 149, 0.8) 100%);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.filter-section h2 {
+    color: var(--white);
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.filter-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.category-select {
+    padding: 12px;
+    border: 2px solid var(--malaysian-yellow);
+    border-radius: 5px;
+    min-width: 200px;
+    font-size: 1em;
+    background-color: var(--white);
+    color: var(--deep-brown);
+    cursor: pointer;
+}
+
+.filter-button {
+    padding: 12px 24px;
+    background-color: var(--malaysian-red);
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.filter-button:hover {
+    background-color: var(--malaysian-yellow);
+    color: var(--deep-brown);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Attractions List Styles */
+.attractions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.attraction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border: 2px solid var(--malaysian-blue);
+    border-radius: 8px;
+    background-color: var(--white);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.attraction-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background-color: var(--malaysian-red);
+}
+
+.attraction-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.attraction-info {
+    display: flex;
+    gap: 30px;
+}
+
+.view-details-btn {
+    padding: 10px 20px;
+    background-color: var(--malaysian-blue);
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.view-details-btn:hover {
+    background-color: var(--malaysian-yellow);
+    color: var(--deep-brown);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+}
+
+.modal.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 800px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    border: 4px solid var(--malaysian-yellow);
+}
+
+.close-button {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--malaysian-red);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--white);
+    border: 2px solid var(--malaysian-red);
+    transition: all 0.3s ease;
+}
+
+.close-button:hover {
+    background-color: var(--malaysian-red);
+    color: var(--white);
+}
+
+/* Details Content Styles */
+.details-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    padding: 20px;
+}
+
+.details-content img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 3px solid var(--malaysian-blue);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.details-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.details-info h3 {
+    color: var(--malaysian-blue);
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    border-bottom: 2px solid var(--malaysian-yellow);
+    padding-bottom: 5px;
+}
+
+.website-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--malaysian-blue);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+}
+
+.website-link:hover {
+    background-color: var(--malaysian-red);
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .filter-controls {
+        flex-direction: column;
+    }
+    
+    .category-select {
+        width: 100%;
+    }
+
+    .details-content {
+        grid-template-columns: 1fr;
+    }
+
+    .attraction-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    .filter-section {
+        padding: 15px;
+    }
+
+    .attraction-item {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .view-details-btn {
+        width: 100%;
+    }
+}
+
+/* Animation Effects */
+.filter-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: repeating-linear-gradient(
+        45deg,
+        var(--malaysian-red),
+        var(--malaysian-red) 10px,
+        var(--malaysian-yellow) 10px,
+        var(--malaysian-yellow) 20px
+    );
+}
+
+.footer {
+    margin-top: 40px;
+    padding: 20px;
+    text-align: center;
+    border-top: 2px solid var(--malaysian-blue);
+    color: var(--deep-brown);
+}
+
+.footer p {
+    font-size: 0.9em;
+}

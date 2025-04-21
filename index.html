@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gateway to Malaysia: A Journey Through Its Attractions</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gateway to Malaysia: A Journey Through Its Attractions</h1>
+
+        <!-- Category Filter -->
+        <div class="filter-section">
+            <h2>Filter by Category:</h2>
+            <div class="filter-controls">
+                <select id="categoryFilter" class="category-select">
+                    <option value="all">All Categories</option>
+                </select>
+                <button id="filterButton" class="filter-button">Apply Filter</button>
+                <button id="resetFilter" class="filter-button">Reset</button>
+            </div>
+        </div>
+
+        <!-- Main Attractions List -->
+        <div id="mainAttractionsList" class="attractions-list">
+            <!-- Attractions will be listed here -->
+        </div>
+
+        <!-- Details Modal -->
+        <div id="detailsModal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <div id="modalContent"></div>
+            </div>
+        </div>
+
+        <!-- Footer with Copyright -->
+        <footer class="footer">
+            <p>&copy; 2025 Gateway to Malaysia. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        const attractionsData = `<?xml version="1.0" encoding="UTF-8"?>
+<attractions>
+    <attraction>
+        <PlaceID>001</PlaceID>
+        <Name>Petronas Twin Towers</Name>
+        <City>Kuala Lumpur</City>
+        <State>Federal Territory of Kuala Lumpur</State>
+        <Description>The Petronas Twin Towers are a pair of iconic skyscrapers located in Kuala Lumpur, Malaysia. Standing at 452 meters (1,483 feet), they were once the tallest buildings in the world from 1998 until 2004. The towers feature a distinctive postmodern architectural style, designed by architect César Pelli, and are connected by a sky bridge on the 41st and 42nd floors. The structure primarily serves as the headquarters for the national oil and gas company, Petronas, and includes offices, a concert hall, and a public park. The towers are a popular tourist attraction, offering stunning views of the city from their observation deck.</Description>
+        <OpeningHours>9 AM - 9 PM</OpeningHours>
+        <Category>Urban Landmark</Category>
+        <Ticket>Yes</Ticket>
+        <Price>Entrance fee is typically around RM 80 for adults and RM 30 for children.</Price>
+        <Image>images/petronas_towers.jpg</Image>
+        <WebsiteLink>http://www.petronastwintowers.com</WebsiteLink>
+    </attraction>
+    <attraction>
+        <PlaceID>002</PlaceID>
+        <Name>George Town Metropolitan City</Name>
+        <City>George Town</City>
+        <State>Penang</State>
+        <Description>George Town is the capital of the state of Penang, Malaysia, and is known for its rich history and cultural diversity. Established in the late 18th century, it features a mix of colonial architecture, vibrant street art, and a variety of culinary delights. The city is recognized as a UNESCO World Heritage Site, with notable landmarks including the Cheong Fatt Tze Mansion, the Kapitan Keling Mosque, and various temples and churches. George Town is a popular destination for tourists seeking to explore its multicultural heritage, bustling markets, and delicious food scene, showcasing a blend of Malay, Chinese, Indian, and European influences.</Description>
+        <OpeningHours>24 hours</OpeningHours>
+        <Category>Historical</Category>
+        <Ticket>Yes</Ticket>
+        <Price>Many attractions in George Town are free or have low fees; however, some museums and heritage sites may charge around RM 10 to RM 30.</Price>
+        <Image>images/george_town.jpg</Image>
+        <WebsiteLink>https://ms.wikipedia.org/wiki/George_Town,_Pulau_Pinang</WebsiteLink>
+    </attraction>
+    <attraction>
+        <PlaceID>003</PlaceID>
+        <Name>Batu Caves</Name>
+        <City>Batu Caves</City>
+        <State>Selangor</State>
+        <Description>Batu Caves is a popular tourist attraction located just outside Kuala Lumpur, Malaysia. It is a limestone hill that features a series of caves and cave temples, dedicated primarily to the Hindu deity Lord Murugan. The site is easily recognizable by the massive golden statue of Lord Murugan that stands at the base of the hill. Visitors can climb a steep flight of 272 steps to reach the main temple cave, which houses various Hindu shrines and offers stunning views of the surrounding area. Batu Caves is also known for its vibrant Thaipusam festival, attracting thousands of devotees each year.</Description>
+        <OpeningHours>6 AM - 9 PM</OpeningHours>
+        <Category>Religious</Category>
+        <Ticket>Yes</Ticket>
+        <Price>Entry to the main caves is free, but there is a fee for certain attractions, such as the Dark Cave, which is approximately RM 35.</Price>
+        <Image>images/batu_caves.jpg</Image>
+        <WebsiteLink>https://www.malaysia.travel/explore/batu-caves</WebsiteLink>
+    </attraction>
+    <attraction>
+        <PlaceID>004</PlaceID>
+        <Name>Langkawi Sky Bridge</Name>
+        <City>Langkawi</City>
+        <State>Kedah</State>
+        <Description>The Langkawi Sky Bridge is a stunning curved pedestrian bridge located in Langkawi, Malaysia. Spanning 125 meters and suspended 660 meters above sea level, it offers breathtaking panoramic views of the surrounding islands, mountains, and the Andaman Sea. The bridge is accessible via the Langkawi Cable Car, which transports visitors to the top of Gunung Mat Cincang. Designed for both safety and aesthetics, the Sky Bridge features a unique design with a main deck supported by a single pylon.</Description>
+        <OpeningHours>10 AM - 7 PM</OpeningHours>
+        <Category>Adventure</Category>
+        <Ticket>Yes</Ticket>
+        <Price>Access to the Sky Bridge is typically included with a ticket for the Langkawi Cable Car, which costs around RM 55 for adults.</Price>
+        <Image>images/langkawi_sky_bridge.jpg</Image>
+        <WebsiteLink>https://panoramalangkawi.com/skybridge/</WebsiteLink>
+    </attraction>
+    <attraction>
+        <PlaceID>005</PlaceID>
+        <Name>Putrajaya</Name>
+        <City>Putrajaya</City>
+        <State>Federal Territory of Putrajaya</State>
+        <Description>Putrajaya is the federal administrative center of Malaysia, located approximately 25 kilometers south of Kuala Lumpur. Established in the 1990s, it is known for its modern architecture, expansive green spaces, and well-planned urban layout. The city features impressive landmarks such as the Putra Mosque, the Prime Minister's Office, and the Putrajaya Lake, which offers recreational opportunities and stunning views.</Description>
+        <OpeningHours>24 hours</OpeningHours>
+        <Category>Urban Landmark</Category>
+        <Ticket>Yes</Ticket>
+        <Price>Many attractions in Putrajaya are free, including parks and public spaces. Certain activities, like boat tours, may have fees ranging from RM 20 to RM 50.</Price>
+        <Image>images/putrajaya.jpg</Image>
+        <WebsiteLink>https://en.wikipedia.org/wiki/Putrajaya</WebsiteLink>
+    </attraction>
+    <attraction>
+        <PlaceID>006</PlaceID>
+        <Name>Mount Kinabalu</Name>
+        <City>Kota Kinabalu</City>
+        <State>Sabah</State>
+        <Description>Mount Kinabalu is the highest peak in Southeast Asia, standing at 4,095 meters above sea level. Located in Sabah, Malaysia, within the Kinabalu Park—a UNESCO World Heritage Site—Mount Kinabalu is a popular destination for hikers and nature enthusiasts. The mountain boasts a diverse range of flora and fauna, including many endemic species. The trek to the summit is challenging but rewarding, offering stunning views and a chance to experience unique ecosystems.</Description>
+        <OpeningHours>24 hours</OpeningHours>
+        <Category>Adventure</Category>
+        <Ticket>Yes</Ticket>
+        <Price>Climbing fees can vary; typically, it's around RM 100 per person, plus additional costs for guides and permits.</Price>
+        <Image>images/mount_kinabalu.jpg</Image>
+        <WebsiteLink>http://www.mountkinabalu.com</WebsiteLink>
+    </attraction>
+    <attraction>
+        <PlaceID>007</PlaceID>
+        <Name>Melaka Historic City</Name>
+        <City>Melaka</City>
+        <State>Melaka</State>
+        <Description>Melaka is a historic city in Malaysia that reflects a rich blend of cultural influences from its long history as a trading port. It was designated a UNESCO World Heritage Site in 2008 due to its well-preserved colonial buildings, historic sites, and vibrant multicultural heritage. Key attractions include the A Famosa fortress, St. Paul's Hill, the Dutch Square with its iconic red buildings, and Jonker Street, famous for its bustling night market and delicious street food.</Description>
+        <OpeningHours>24 hours</OpeningHours>
+        <Category>Cultural</Category>
+        <Ticket>Yes</Ticket>
+        <Price>Many sites are free or charge a small fee of RM 5 to RM 20 for entry to museums or fortifications.</Price>
+        <Image>images/melaka.jpg</Image>
+        <WebsiteLink>https://www.malaysia.travel/explore/the-historical-city-of-melaka</WebsiteLink>
+    </attraction>
+    <attraction>
+        <PlaceID>008</PlaceID>
+        <Name>Sunway Lagoon</Name>
+        <City>Petaling Jaya</City>
+        <State>Selangor</State>
+        <Description>Sunway Lagoon is a popular multi-park attraction located in Petaling Jaya, Malaysia. It encompasses a water park, amusement park, wildlife park, and extreme park, offering a wide range of entertainment options for visitors of all ages. The water park features various slides, wave pools, and a lazy river, while the amusement park includes thrilling rides and attractions. The wildlife park showcases various animal species in naturalistic settings.</Description>
+        <OpeningHours>10 AM - 6 PM</OpeningHours>
+        <Category>Recreational</Category>
+        <Ticket>Yes</Ticket>
+        <Price>The entrance fee is generally around RM 150 for adults and RM 120 for children.</Price>
+        <Image>images/sunway_lagoon.jpg</Image>
+        <WebsiteLink>http://www.sunwaylagoon.com</WebsiteLink>
+    </attraction>
+    <attraction>
+        <PlaceID>009</PlaceID>
+        <Name>Perhentian Islands</Name>
+        <City>Perhentian Island</City>
+        <State>Terengganu</State>
+        <Description>The Perhentian Islands are a group of beautiful islands located off the northeastern coast of Malaysia. Renowned for their stunning white sandy beaches, crystal-clear turquoise waters, and vibrant coral reefs, they are popular destinations for snorkeling, diving, and other water sports. The islands offer a laid-back atmosphere, attracting travelers looking for relaxation and natural beauty.</Description>
+        <OpeningHours>24 hours</OpeningHours>
+        <Category>Adventure</Category>
+        <Ticket>Yes</Ticket>
+        <Price>There is typically a marine park entry fee of about RM 30 for adults.</Price>
+        <Image>images/perhentian_islands.jpg</Image>
+        <WebsiteLink>https://www.perhentianislandresort.my/</WebsiteLink>
+    </attraction>
+    <attraction>
+        <PlaceID>010</PlaceID>
+        <Name>Kuala Lumpur Bird Park</Name>
+        <City>Kuala Lumpur</City>
+        <State>Federal Territory of Kuala Lumpur</State>
+        <Description>Kuala Lumpur Bird Park is a renowned aviary located within the Perdana Botanical Gardens in Kuala Lumpur, Malaysia. It is one of the largest free-flight walk-in aviaries in the world, covering 21 acres and home to more than 3,000 birds representing around 200 species. The park offers visitors a chance to observe various local and exotic birds in beautifully landscaped surroundings.</Description>
+        <OpeningHours>9 AM - 6 PM</OpeningHours>
+        <Category>Educational</Category>
+        <Ticket>Yes</Ticket>
+        <Price>Entrance fees are usually around RM 63 for adults and RM 42 for children</Price>
+        <Image>images/kl_bird_park.jpg</Image>
+        <WebsiteLink>http://www.klbirdpark.com</WebsiteLink>
+    </attraction>
+</attractions>`;
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
